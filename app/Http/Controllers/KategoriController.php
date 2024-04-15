@@ -38,12 +38,13 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         $kategori = KategoriModel::find($id);
-        $kategori->kategori_kode = $request->kategori_kode;
-        $kategori->kategori_nama = $request->kategori_nama;
+        $kategori->kategori_kode = $request->kodeKategori;
+        $kategori->kategori_nama = $request->namaKategori;
         $kategori->save();
 
         return redirect('/kategori')->with('success', 'Kategori berhasil diupdate');
     }
+
     public function delete($id)
     {
         $kategori = KategoriModel::find($id);
@@ -53,6 +54,6 @@ class KategoriController extends Controller
 
         $kategori->delete();
 
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
+        return redirect('/kategori')->with('success', 'Kategori berhasil dihapus');
     }
 }

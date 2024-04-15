@@ -318,20 +318,29 @@ return [
         [
             'text' => 'pages',
             'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-book',
             'label' => 4,
             'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Kategori',
+                    'url' => '/kategori',
+                ],
+                [
+                    'text' => 'User',
+                    'url' => '/user',
+                ],
+                [
+                    'text' => 'Level',
+                    'url' => '/level',
+                ],
+            ],
         ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Manage Kategori',
-            'url' => 'kategori',
-            'icon' => 'fas fa-fw fa-list',
         ],
         [
             'text' => 'change_password',

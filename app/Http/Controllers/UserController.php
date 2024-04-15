@@ -2,61 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UserDataTable;
+use App\Models\LevelModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-use function Laravel\Prompts\password;
-
 class UserController extends Controller
 {
-    public function index()
+    public function index(UserDataTable $dataTable)
     {
-        $user = UserModel::with('level')->get();
-        dd($user);
-        // return view('user', ['data' => $user]);
+        return $dataTable->render('user.index');
     }
 
-    public function tambah()
+    public function create()
     {
-        return view('user_tambah');
+        return view('user.create');
     }
 
-    public function tambah_simpan(Request $request)
+    public function store(Request $request)
     {
         UserModel::create([
-            'username' => $request->username,
             'nama' => $request->nama,
-            'password' => Hash::make('$request->password'),
-            'level_id' => $request->level_id
+            'level_id' => $request->levelId,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect('/user');
     }
 
-    public function ubah($id)
+    public function edit($id)
     {
         $user = UserModel::find($id);
-        return view('user_ubah', ['data' => $user]);
+        $levels = LevelModel::all();
+        return view('user.edit', compact('user', 'levels'));
     }
 
-    public function ubah_simpan($id, Request $request){
+    public function update(Request $request, $id)
+    {
         $user = UserModel::find($id);
 
-        $user->username = $request->username;
-        $user->nama = $request->nama;
-        $user->password = Hash::make('$request->password');
-        $user->level_id = $request->level_id;
+        $user-> nama = $request->nama;
+        $user-> level_id = $request->levelId;
+        $user-> username = $request->username;
+        $user-> password = Hash::make($request->password);
         $user->save();
 
-        return redirect('/user');
+        return redirect('/user')->with('success', 'User berhasil diupdate');
     }
 
-    public function hapus($id)
+    public function delete($id)
     {
         $user = UserModel::find($id);
+        if (!$user) {
+            abort(404);
+        }
+
         $user->delete();
 
-        return redirect('/user');
+        return redirect('/user')->with('success', 'User berhasil dihapus');
     }
+
+    public function getLevel(){
+        $levels = LevelModel::all();
+        return view('user.create', ['levels' => $levels]);
+    }
+
 }

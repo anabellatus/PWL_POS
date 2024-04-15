@@ -24,18 +24,23 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/level', [LevelController::class, 'index']);
-Route::get('/kategori', [KategoriController::class, 'index']);
+Route::get('/level/create', [LevelController::class, 'create'])->name('level.create');
+Route::post('/level', [LevelController::class, 'store']);
+Route::get('/level/edit/{id}', [LevelController::class, 'edit'])->name('level.edit');
+Route::put('/level/update/{id}', [LevelController::class, 'update'])->name('level.update');
+Route::get('/level/delete/{id}', [LevelController::class, 'delete'])->name('level.delete');
+
 Route::get('/user', [UserController::class, 'index']);
-Route::get('/user/tambah', [UserController::class, 'tambah']);
-Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
-Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
-Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
-Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::get('/user/create', [UserController::class, 'getLevel'])->name('user.create');;
+Route::post('/user', [UserController::class, 'store']);
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+
+Route::get('/kategori', [KategoriController::class, 'index']);
 Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
 Route::post('/kategori', [KategoriController::class, 'store']);
 Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
 Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 Route::get('/kategori/delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
-
-
-
