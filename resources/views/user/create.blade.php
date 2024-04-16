@@ -15,26 +15,41 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder=" Nama">
+                        <input type="text" class="@error('nama') is-invalid @enderror form-control" id="nama"
+                            name="nama" placeholder="Nama">
+                        @error('nama')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="levelId">Level Id</label>
-                        <select class="form-control" id="levelId" name="levelId">
+                        <label for="level_id">Level Id</label>
+                        <select class="@error('level_id') is-invalid @enderror form-control" id="level_id" name="level_id">
                             @foreach ($levels as $level)
                                 <option value="{{ $level->level_id }}">{{ $level->level_nama }}</option>
                             @endforeach
                         </select>
+                        @error('level_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder=" Username">
+                        <input type="text" class="@error('username') is-invalid @enderror form-control" id="username"
+                            name="username" placeholder=" Username">
+                        @error('username')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder=" Password">
+                        <input type="password" class="@error('password') is-invalid @enderror form-control" id="password"
+                            name="password" placeholder=" Password">
+                        @error('password')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="card-footer">
@@ -43,4 +58,13 @@
             </form>
         </div>
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection

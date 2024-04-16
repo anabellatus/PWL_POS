@@ -25,10 +25,13 @@ class KategoriController extends Controller
     {
         $validated = $request->validate([
             'kategori_kode' => 'bail|required|max:10',
-            'kategori_nama' => 'required|max:100',
+            'kategori_nama' => 'bail|required|max:100',
         ]);
 
-        KategoriModel::create($validated);
+        KategoriModel::create([
+            'kategori_kode' => $validated['kategori_kode'],
+            'kategori_nama' => $validated['kategori_nama'],
+        ]);
 
         return redirect('/kategori');
     }

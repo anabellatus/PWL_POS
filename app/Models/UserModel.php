@@ -11,9 +11,16 @@ class UserModel extends Model
     use HasFactory;
 
     protected $table = 'm_user';
+    public $timestamps = false;
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['level_id', 'username', 'password', 'nama'];
+    protected $fillable = [
+        'user_id',
+        'level_id',
+        'username',
+        'nama',
+        'password',
+    ];
 
     public function level(): BelongsTo
     {

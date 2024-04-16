@@ -14,18 +14,20 @@
             <form method="post" action="../kategori">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="kodeKategori">Kode Kategori</label>
-                        <input type="text" class="form-control @error('kategori_kode') is-invalid @enderror" id="kodeKategori"
-                            name="kategori_kode" placeholder=" Kode Kategori">
-
-                            @error('kodeKategori')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        <label for="kategori_kode">Kode Kategori</label>
+                        <input type="text" class="@error('kategori_kode') is-invalid @enderror form-control"
+                            id="kategori_kode" name="kategori_kode" placeholder=" Kode Kategori">
+                        @error('kategori_kode')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="namaKategori">Nama Kategori</label>
-                        <input type="text" class="form-control" id="namaKategori" name="namaKategori"
-                            placeholder=" Nama Kategori">
+                        <label for="kategori_nama">Nama Kategori</label>
+                        <input type="text" class="@error('kategori_nama') is-invalid @enderror form-control"
+                            id="kategori_nama" name="kategori_nama" placeholder=" Nama Kategori">
+                        @error('kategori_nama')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="card-footer">

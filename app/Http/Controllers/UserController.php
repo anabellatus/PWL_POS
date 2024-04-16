@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\UserDataTable;
 use App\Models\LevelModel;
 use App\Models\UserModel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,11 +21,18 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
+        $validated = $request->validate([
+            'nama' => 'bail|required|max:100',
+            'level_id' => 'bail|required',
+            'username' => 'bail|required|max:20',
+            'password' => 'bail|required|max:255',
+        ]);
+
         UserModel::create([
             'nama' => $request->nama,
-            'level_id' => $request->levelId,
+            'level_id' => $request->level_id,
             'username' => $request->username,
             'password' => Hash::make($request->password),
         ]);
