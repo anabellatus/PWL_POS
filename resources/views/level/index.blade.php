@@ -1,24 +1,92 @@
-@extends('layouts.app')
-
-@section('subtitle', 'Level')
-@section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Level')
+@extends('layouts.template')
 
 @section('content')
-<div class="container">
-    <div class="card">
+    <div class="card card-outline card-primary">
         <div class="card-header">
-            Manage Level
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools">
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('level/create') }}">Tambah</a>
+            </div>
         </div>
         <div class="card-body">
-            <a href="{{ route('level.create') }}" class="btn btn-primary">Add</a>
-            {{ $dataTable->table() }}
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            {{-- <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-1 control-label col-form-label">Filter:</label>
+                        <div class="col-3">
+                            <select name="level_name" id="level_name" class="form-control" required>
+                                <option value="">- Semua -</option>
+                                @foreach ($level as $item)
+                                    <option value="{{ $item->level_nama }}">{{ $item->level_nama }}</option>
+                                @endforeach
+                            </select>
+                            <small class="form-text text-muted">Level Pengguna</small>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_level">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Level Kode</th>
+                        <th>Level Nama</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
-</div>
 @endsection
 
-@push('scripts')
-    {{ $dataTable->scripts()}}
+@push('css')
 @endpush
 
+@push('js')
+    <script>
+        $(document).ready(function() {
+            var datalevel = $('#table_level').DataTable({
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('level/list') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.level_name = $('#level_name').val();
+                    }
+                },
+                columns: [{
+                    data: "DT_RowIndex", // nomor urut dari laravel datatable addIndexColumn()
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "level_kode",
+                    className: "",
+                    orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "level_nama",
+                    className: "",
+                    orderable: true, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: true // searchable: true, jika ingin kolom ini bisa dicari
+                }, {
+                    data: "aksi",
+                    className: "",
+                    orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+                }]
+            });
+
+            $('#level_name').on('change', function() {
+                dataLevel.ajax.reload();
+            });
+        });
+    </script>
+@endpush
