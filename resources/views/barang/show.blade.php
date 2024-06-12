@@ -41,14 +41,8 @@
                     <tr>
                         <th>Gambar</th>
                         <td>
-                            <img src="{{ $barang->image }}" alt="{{ $barang->barang_nama }}" class="img-thumbnail"
-                                width="100">
+                            <img src="{{ $barang->image }}" alt="Image" class="img-thumbnail" width="100">
                         </td>
-                        {{-- @if ($barang->image)
-                            <img src="{{ $barang->image }}" alt="Gambar {{ $barang->barang_nama }}" style="max-width: 150px;">
-                        @else
-                            Tidak ada gambar
-                        @endif --}}
                     </tr>
                 </table>
             @endempty

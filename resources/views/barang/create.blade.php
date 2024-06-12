@@ -7,7 +7,7 @@
             <div class="card-tools"></div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ url('barang') }}" class="form-horizontal">
+            <form method="POST" action="{{ url('barang') }}" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Kategori</label>
@@ -60,6 +60,17 @@
                             value="{{ old('harga_jual') }}" required placeholder="Masukkan Harga Jual">
                         @error('harga_jual')
                             <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="image" class="col-1 control-label col-form-label">Foto Barang</label>
+                    <div class="col-11">
+                        <input type="text" class="form-control" id="nama_foto" name="nama_foto"
+                            placeholder="Isi Nama Foto">
+                        <input type="file" class="form-control mt-2" id="image" name="image">
+                        @error('image')
+                            <div class="text-danger"> {{ $message }} </div>
                         @enderror
                     </div>
                 </div>
