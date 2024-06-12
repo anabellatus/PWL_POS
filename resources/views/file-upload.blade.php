@@ -17,6 +17,8 @@
             @csrf
             <div class="mb-3">
                 <label for="berkas" class="form-label">Gambar Profile</label>
+                <input type="text" class="form-control" id="nama_berkas" name="nama_berkas" placeholder="Isi Nama File">
+                <br>
                 <input type="file" class="form-control" id="berkas" name="berkas">
                 @error('berkas')
                     <div class="text-danger"> {{ $message }} </div>

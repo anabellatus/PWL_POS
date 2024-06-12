@@ -15,17 +15,21 @@ class FileUploadController extends Controller
     {
         $request->validate([
             'berkas' => 'required|file|image|max:500',
+            'nama_berkas' => 'required|string',
         ]);
         $extfile = $request->berkas->getClientOriginalExtension();
-        $namaFile = 'web-'.time().".".$extfile;
+        // $namaFile = 'web-'.time().".".$extfile;
+        $namaFile = $request->nama_berkas.'.'.$extfile;
 
         $path = $request->berkas->move('gambar', $namaFile);
-        $path = str_replace("\\", "//", $path);
+        $path = str_replace("\\", "/", $path);
         echo "Variabel path berisi: $path <br>";
 
-        $pathBaru = asset('gambar/'.$namaFile);
+        // $pathBaru = asset('gambar/'.$namaFile);
+        $pathBaru = asset('gambar/'.$request->nama_berkas);
         echo "Proses upload berhasil, file berada di " . $path;
         echo "<br>";
-        echo "Tampilkan link:<a href='$pathBaru'>$pathBaru</a>";
+        // echo "Tampilkan link:<a href='$pathBaru'>$pathBaru</a>";
+        echo "<img src='$pathBaru'>";
     }
 }
